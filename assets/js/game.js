@@ -1,3 +1,10 @@
+// function to generate a random numeric value
+var randomNumber = function(min, max) {
+  var value = Math.floor(Math.random() * (max - min + 1) + min);
+
+  return value;
+};
+
 var playerName = window.prompt("what is your robot's name?");
 var playerHealth = 100;
 var playerAttack = 10;
@@ -7,7 +14,7 @@ var playerMoney = 10;
 console.log(playerName, playerAttack, playerHealth);
 
 var enemyNames = ["Roborto", "Amy Android", "Robo Trumble"];
-var enemyHealth = 50;
+var enemyHealth = randomNumber (40-60);
 var enemyAttack = 12;
 
 
@@ -27,15 +34,16 @@ var fight = function (enemyName) {
             if (confirmSkip) {
                 window.alert(playerName + " has decided to skip this fight. Goodbye!");
                 // subtract money from playerMoney for skipping
-                playerMoney = playerMoney - 10;
+                playerMoney = Math.max(0, playerMoney - 10);
                 console.log("playerMoney", playerMoney);
                 break;
             }
 
         }
 
-        // Subtract the value of 'playerAttack' from the value of 'enemyHealth' and use that reslut to update the value in the 'enemyHealth' variable. 
-        enemyHealth = enemyHealth - playerAttack;
+       // generate random damge value based on player's attack power
+       var damage = randomNumber(playerAttack - 3, playerAttack);
+        enemyHealth = Math.max(0, enemyHealth - damage);
 
         // Log a resulting message to the console so we know that it worked.
         console.log(
@@ -51,8 +59,9 @@ var fight = function (enemyName) {
             window.alert(enemyName + " still has " + enemyHealth + " health left.");
         }
 
-        // Subtract a value of 'enemyAttack' from the value of 'playerHealth' and use that reslut to update the value in the 'playerHealth' variable.
-        playerHealth = playerHealth - enemyAttack;
+       // generate random damge value based on player's attack power
+       var damage = randomNumber(playerAttack -3, playerAttack)
+        playerHealth = Math.max(0, playerHealth - damage);
 
         // Log a resulting message to the console so we know that it worked.
         console.log(
@@ -141,33 +150,33 @@ var shop = function () {
     );
     // use swithc to carry out action
     switch (shopOptionPromt) {
-        case "REFILL": 
+        case "REFILL":
         case "refill":
             if (playerMoney >= 7) {
-            window.alert("Refilling player's health by 20 for 7 dollars.");
+                window.alert("Refilling player's health by 20 for 7 dollars.");
 
-            //increase health and decrease money
-            playerHealth = playerHealth + 20;
-            playerMoney = playerMoney - 7;
-            }
-            else {
-                window.alert ("You don't have enough money!");
-            }  
-            break;
-        case "UPGRADE":    
-        case "upgrade":
-            if (playerMoney >= 7) {
-            window.alert("Upgrading player's attack by 6 for 7 dollars.");
-
-            // increase attack and decrease money
-            playerAttack = playerAttack + 6;
-            playerMoney = playerMoney - 7;
+                //increase health and decrease money
+                playerHealth = playerHealth + 20;
+                playerMoney = playerMoney - 7;
             }
             else {
                 window.alert("You don't have enough money!");
             }
             break;
-        case "LEAVE":    
+        case "UPGRADE":
+        case "upgrade":
+            if (playerMoney >= 7) {
+                window.alert("Upgrading player's attack by 6 for 7 dollars.");
+
+                // increase attack and decrease money
+                playerAttack = playerAttack + 6;
+                playerMoney = playerMoney - 7;
+            }
+            else {
+                window.alert("You don't have enough money!");
+            }
+            break;
+        case "LEAVE":
         case "leave":
             window.alert("Leaving the store.");
 
