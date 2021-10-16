@@ -18,7 +18,7 @@ var fightOrSkip = function() {
       if(promptFight === "skip") {
       // confirm player wants to skip
       var confirmSkip = window.confirm("Are you sure you'd like to quit?");
-  
+  debugger;
       // if yes (true), leave fight
       if (confirmSkip) {
         window.alert(playerInfo.name + " has decided to skip this fight. Goodbye!");
@@ -142,33 +142,30 @@ var endGame = function () {
 
 var shop = function () {
     // ask player what they would like to do
-    var shopOptionPromt = window.prompt(
-        "Would you like to REFILL your health, UPGRADE your attack, or LEAVE the store? Please enter one: 'REFILL', 'UPGRADE', or 'LEAVE' to make a choice."
+    var shopOptionPrompt = window.prompt(
+        "Would you like to REFILL your health, UPGRADE your attack, or LEAVE the store? Please enter one 1 for REFILL, 2 for UPGRADE, or 3 LEAVE."
     );
+    // convert answer from prompt to an actual number
+    shopOptionPrompt = parseInt(shopOptionPrompt);
+
     // use swithc to carry out action
-    switch (shopOptionPromt) {
-        case "REFILL":
-        case "refill":
+    switch (shopOptionPrompt) {
+        case 1:
             playerInfo.refillHealth();
             break;
-        case "UPGRADE":
-        case "upgrade":
+        case 2:
             playerInfo.upgradeAttack();
             break;
-        case "LEAVE":
-        case "leave":
+        case 3:
             window.alert("Leaving the store.");
-
             // do nothing, so function will end
             break;
         default:
             window.alert("You did not pick a valid option. Try again.");
-
-            // call shop() again to force player to pick a valid option
             shop();
             break;
     }
-}
+};
 
 //function to set name
 var getPlayerName = function() {
@@ -178,6 +175,7 @@ while (name === "" || name === null ) {
     name = prompt ("What is your robot's name?");
 }
 console.log("Your robot's name is" + name);
+return name;
 };
 
 // end game functions
